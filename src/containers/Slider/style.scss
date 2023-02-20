@@ -5,6 +5,7 @@
   width: 100%;
   max-width: 1440px;
   height: 586px;
+  overflow: hidden;
   .SlideCard {
     width: 100%;
     left: 0;
@@ -16,6 +17,11 @@
     }
     &--display {
       animation: slide 1s forwards;
+    }
+    &__pictureEvent {
+      object-fit: cover;
+      width: auto;
+      height: 100%;
     }
     &__descriptionContainer {
       position: absolute;
