@@ -28,7 +28,9 @@ describe("When Form is created", () => {
       await screen.findByText("En cours");
       await waitFor(
         () => {
-          expect(screen.getByText("Message envoyé !")).toBeInTheDocument();
+          // expect(screen.getByText("Message envoyé !")).toBeInTheDocument();
+          const successMessage = screen.getByTestId("successMessage");
+          expect(successMessage).toHaveTextContent("Message envoyé !");
         },
         { timeout: 5000 }
       );
