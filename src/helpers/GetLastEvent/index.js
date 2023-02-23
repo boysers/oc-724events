@@ -1,4 +1,4 @@
-/** @param {[]} events */
+/** @param {any[]} events */
 // eslint-disable-next-line import/prefer-default-export
 export function getLastEvent(events) {
   if (!events) return undefined;
