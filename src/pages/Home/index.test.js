@@ -1,5 +1,6 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import Home from "./index";
+import { DataProvider } from "../../contexts/DataContext";
 
 describe("When Form is created", () => {
   it("a list of fields card is displayed", async () => {
@@ -21,26 +22,45 @@ describe("When Form is created", () => {
         })
       );
       await screen.findByText("En cours");
-      await waitFor(async () => {
-        expect(screen.getByText("Message envoyé !")).toBeInTheDocument();
-      }, { timeout: 5000 });
+      await waitFor(
+        () => {
+          expect(screen.getByText("Message envoyé !")).toBeInTheDocument();
+        },
+        { timeout: 5000 }
+      );
     });
   });
-
 });
 
-
 describe("When a page is created", () => {
-  it("a list of events is displayed", () => {
-    // to implement
-  })
-  it("a list a people is displayed", () => {
-    // to implement
-  })
-  it("a footer is displayed", () => {
-    // to implement
-  })
-  it("an event card, with the last event, is displayed", () => {
-    // to implement
-  })
+  it("a list of events is displayed", async () => {
+    render(
+      <DataProvider>
+        <Home />
+      </DataProvider>
+    );
+    expect(screen.getByTestId("eventlist")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText("#DigitonPARIS")).toBeInTheDocument();
+    });
+  });
+  it("a list a people is displayed", async () => {
+    render(<Home />);
+    expect(screen.getByTestId("peoplelist")).toBeInTheDocument();
+    expect(screen.getByText("Jean-baptiste")).toBeInTheDocument();
+  });
+  it("a footer is displayed", async () => {
+    render(<Home />);
+    expect(screen.getByTestId("footer")).toBeInTheDocument();
+  });
+  it("an event card, with the last event, is displayed", async () => {
+    render(
+      <DataProvider>
+        <Home />
+      </DataProvider>
+    );
+    await waitFor(() => {
+      // const lastEvent = events;
+    });
+  });
 });
