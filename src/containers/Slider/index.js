@@ -57,7 +57,7 @@ const Slider = () => {
               type="radio"
               name="radio-button"
               checked={index === radioIdx}
-              onClick={() => switchCard(radioIdx)}
+              onChange={() => switchCard(radioIdx)}
             />
           ))}
         </div>
