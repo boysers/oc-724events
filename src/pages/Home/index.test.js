@@ -1,14 +1,16 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
 import Home from "./index";
 import { DataProvider } from "../../contexts/DataContext";
 
 describe("When Form is created", () => {
   it("a list of fields card is displayed", async () => {
-    render(
-      <DataProvider>
-        <Home />
-      </DataProvider>
-    );
+    render(<Home />);
     await screen.findByText("Email");
     await screen.findByText("Nom");
     await screen.findByText("Prénom");
@@ -16,6 +18,14 @@ describe("When Form is created", () => {
   });
 
   describe("and a click is triggered on the submit button", () => {
+    beforeEach(() => {
+      jest.useFakeTimers({});
+    });
+
+    afterEach(() => {
+      jest.clearAllTimers()
+    });
+
     it("the success message is displayed", async () => {
       render(<Home />);
       fireEvent(
@@ -26,14 +36,8 @@ describe("When Form is created", () => {
         })
       );
       await screen.findByText("En cours");
-      await waitFor(
-        () => {
-          // expect(screen.getByText("Message envoyé !")).toBeInTheDocument();
-          const successMessage = screen.getByTestId("successMessage");
-          expect(successMessage).toHaveTextContent("Message envoyé !");
-        },
-        { timeout: 5000 }
-      );
+      act(() => jest.advanceTimersByTime(5000));
+      await waitFor(() => screen.getByText("Message envoyé !"));
     });
   });
 });
