@@ -130,6 +130,7 @@ const Page = () => {
             date={new Date(last.date)}
             small
             label={last.type}
+            data-testid="lastEvent"
           />
         )}
       </div>

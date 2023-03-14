@@ -23,7 +23,7 @@ describe("When Form is created", () => {
     });
 
     afterEach(() => {
-      jest.clearAllTimers()
+      jest.clearAllTimers();
     });
 
     it("the success message is displayed", async () => {
@@ -70,7 +70,7 @@ describe("When a page is created", () => {
       </DataProvider>
     );
     await waitFor(() => {
-      // const lastEvent = events;
+      expect(screen.getByTestId("lastEvent")).toBeInTheDocument();
     });
   });
 });
